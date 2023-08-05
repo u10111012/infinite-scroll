@@ -4,7 +4,14 @@ export const api = axios.create({
     baseURL:'https://jsonplaceholder.typicode.com'
 })
 
+interface IPosts {
+    userId: number
+    id: number
+    title: string
+    body: string
+}
+
 export const getPostsPage = async (pageParam =1,options={}) => {
     const response = await api.get(`/posts?_page=${pageParam}`, options)
-    return response.data
+    return response.data as IPosts[]
 }
