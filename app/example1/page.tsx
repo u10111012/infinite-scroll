@@ -19,7 +19,7 @@ const Page = () => {
         hasNextPage
     } = usePosts(pageNum)
     const intObserver = useRef<IntersectionObserver | null>(null);
-
+    // @ts-ignore
     const lastPostRef = useCallback(post => {
     if (isLoading) return
 
