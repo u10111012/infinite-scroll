@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card"
 
 const Post = React.forwardRef( ({post},ref)  => {
-
     const content = ref
         ? <Card className='bg-amber-600' ref={ref}>
           <CardHeader>

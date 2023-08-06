@@ -5,7 +5,8 @@ const usePosts = (pageNum = 1) => {
     const [results, setResults] = useState([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [isError, setIsError] = useState<boolean>(false)
-    const [error, setError] = useState<object>({})
+    // 怪怪 Der
+    const [error, setError] = useState<Partial<Error>>(null)
     const [hasNextPage, setHasNextPage] = useState<boolean>(false)
 
     useEffect(() => {
@@ -26,7 +27,9 @@ const usePosts = (pageNum = 1) => {
                 setIsLoading(false)
                 if (signal.aborted) return
                 setIsError(true)
-                setError({ message: e.message })
+                if(e instanceof Error){
+                  setError({ message:(e as Error).message})
+                }
             })
 
         return () => controller.abort()

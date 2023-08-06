@@ -1,13 +1,8 @@
 "use client"
 
-import {useState,useRef,useCallback} from "react";
+import {useState,useRef,useCallback,ReactNode} from "react";
 import usePosts from "@/hook/usePosts";
 import Post from "@/components/post";
-
-// interface ObserverExtend {
-//     disconnect: () => void
-//     observe: () => void
-// }
 
 const Page = () => {
     const [pageNum,setPageNum] = useState(1)
@@ -19,11 +14,11 @@ const Page = () => {
         hasNextPage
     } = usePosts(pageNum)
     const intObserver = useRef<IntersectionObserver | null>(null);
-    // @ts-ignore
-    const lastPostRef = useCallback(post => {
+
+    const lastPostRef = useCallback((post:ReactNode) => {
     if (isLoading) return
 
-    if (intObserver.current) intObserver.current.disconnect()
+    if (intObserver.current) intObserver.current!.disconnect()
 
     intObserver.current = new IntersectionObserver(posts => {
         if (posts[0].isIntersecting && hasNextPage) {
@@ -32,7 +27,7 @@ const Page = () => {
         }
     })
 
-    if (post) intObserver.current.observe(post)
+    if (post) intObserver.current!.observe(post)
     }, [isLoading, hasNextPage])
 
     if(isError) return <p className='text-center'>Error:{error.message}</p>
