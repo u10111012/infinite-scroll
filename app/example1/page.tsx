@@ -27,7 +27,7 @@ const Page = () => {
         }
     })
 
-    if (post) intObserver.current!.observe(post)
+    if (post) intObserver.current!.observe(post as Element)
     }, [isLoading, hasNextPage])
 
     if(isError) return <p className='text-center'>Error:{error.message}</p>
